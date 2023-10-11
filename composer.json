@@ -1,0 +1,17 @@
+{
+    "name": "skarner2016/bark",
+    "description": "PHP SDK for the Bark (A privacy-focused, secure and controllable custom notification push tool)",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Skarner2016\\Bark\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "skarner2016",
+            "email": "skarner2016@gmail.com"
+        }
+    ],
+    "require": {}
+}
