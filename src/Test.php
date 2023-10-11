@@ -13,6 +13,3 @@ class Test
         echo '(new Test())->index()' . PHP_EOL;
     }
 }
-
-(new Test())->index();
-
