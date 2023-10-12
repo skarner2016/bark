@@ -10,6 +10,7 @@ class Test
 {
     public function index()
     {
+        
         echo '(new Test())->index()' . PHP_EOL;
     }
 }
