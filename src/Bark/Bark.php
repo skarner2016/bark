@@ -93,30 +93,58 @@ class Bark
         return $this->addParam('timeout', $timeout);
     }
     
+    /**
+     * @desc    add request param
+     * @param   $name
+     * @param   $value
+     * @return  $this
+     * @author  skarner <2023-10-13 15:58>
+     */
     public function addParam($name, $value)
     {
         $this->params[$name] = $value;
         
         return $this;
     }
- 
+    
+    /**
+     * @desc    send http request to bark server
+     * @return  mixed
+     * @throws  BarkException
+     * @author  skarner <2023-10-13 15:57>
+     */
     public function send()
     {
         if (!$this->token) {
             throw new BarkException("token is required");
         }
-    
-        $url = sprintf("%s%s?%s",$this->host,  $this->token, http_build_query($this->params));
         
+        $url = sprintf("%s%s?%s", $this->host, $this->token, http_build_query($this->params));
         
-        // TODO: curl
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout);
-        curl_exec($curl);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         
+        $response  = curl_exec($curl);
+        $httpCode  = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $httpInfo  = curl_getinfo($curl);
+        $errorInfo = curl_error($curl);
+        curl_close($curl);
+    
+        if ($httpCode != 200) {
+            $errorMsg = sprintf("send http request failed, http_code:%s", $httpCode);
+            throw new BarkException($errorMsg);
+        }
         
+        if (empty($httpInfo) || !isset($httpInfo['http_code']) || $httpInfo['http_code'] != 200) {
+            throw new BarkException($errorInfo);
+        }
+     
+        if (empty($response) || !is_string($response)) {
+            throw new BarkException("response error");
+        }
         
-        dd(__METHOD__, __LINE__, $url, $this->host, $this->token, $this->params);
+        return json_decode($response, true);
     }
 }

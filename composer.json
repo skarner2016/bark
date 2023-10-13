@@ -4,7 +4,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Skarner2016\\Bark\\": "src/"
+            "Bark\\": "src/Bark"
         }
     },
     "authors": [
@@ -13,5 +13,7 @@
             "email": "skarner2016@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "ext-curl": "*"
+    }
 }
