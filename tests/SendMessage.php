@@ -4,7 +4,7 @@ require_once "../vendor/autoload.php";
 
 $bark = new \Bark\Bark();
 
-$res = $bark->token('oGpm3tmAWgD33iCrtpFQd8')
+$res = $bark->token('your-bark-key')
     ->title('test-title')
     ->body('test-body')
     ->send();
