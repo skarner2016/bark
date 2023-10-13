@@ -15,5 +15,7 @@
     ],
     "require": {
         "ext-curl": "*"
-    }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
